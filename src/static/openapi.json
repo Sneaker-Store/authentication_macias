@@ -1,0 +1,217 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Authentication",
+    "description": "User authentication",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "localhost:5000"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Loggin user into the system",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Email for login",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "Password for login",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "404": {
+            "description": "Invalid username/password",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Register user into the system",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Email for login",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "description": "Unique username",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "Password hash for login",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {}
+          },
+          "400": {
+            "description": "email already in use",
+            "content": {}
+          },
+          "409": {
+            "description": "email or username already in use",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/{username}/update": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "Unique username",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "Password",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "updated",
+            "content": {}
+          },
+          "404": {
+            "description": "user not logged or session expired",
+            "content": {}
+          },
+          "409": {
+            "description": "username already in use",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/{username}/delete": {
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "Unique username",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted",
+            "content": {}
+          },
+          "404": {
+            "description": "user not logged or session expired",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Authenticate user",
+        "responses": {
+          "200": {
+            "description": "user authenticated",
+            "content": {}
+          },
+          "400": {
+            "description": "bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "session expired",
+            "content": {}
+          },
+          "404": {
+            "description": "user not logged",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs out current logged user",
+        "operationId": "logoutUser",
+        "responses": {
+          "default": {
+            "description": "successful operation",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {}
+}
